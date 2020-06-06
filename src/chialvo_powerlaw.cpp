@@ -50,14 +50,17 @@ int main(int argc, char ** argv)
     vector<double> v_k(N, k_inicial); //
     seed = strtod(argv[3], NULL); 
     num_perm = N-1; //number of permutaions (always N-1 in the paper)
-    srand(seed);
-    for (i = 0; i < N; i++)
-    {
-        v_k[i] = k_inicial + (k_desvio / N) * i;
-    }
-    shuffle(v_k, N, seed, num_perm);
 
-    
+    //original shuffling
+    // srand(seed);
+    // for (i = 0; i < N; i++)
+    // {
+    //     v_k[i] = k_inicial + (k_desvio / N) * i;
+    // }
+    // shuffle(v_k, N, seed, num_perm);
+    //--you can instead just import the shuffled inputs:
+    inName = "inputs/input_shuffling_#" + toString(seed) + ".dat"; 
+    for (i = 0; i < N; i++) {inFile >> v_k[i]; cout << v_k[i] << endl; }
 
     //=================simulation parameters
     // t_exec = 200000; t_trans = 100000; //used in the paper
@@ -82,7 +85,7 @@ int main(int argc, char ** argv)
     {
         eps = strtod(argv[6+idx_e], NULL);  //dados.N = N; 
         //output file
-        outName = "results/shuffled_uniform_min_" + toString(k_inicial) + "_sigma_" + toString(k_desvio) + "_chialvo_spikeTimes_powerlaw_alpha_" + toString(alpha) + "_N_" + toString(N) + "_seed_" + toString(seed) + "_eps_" + toString(eps) + ".dat";
+        outName = "results/shuffled_uniform_min_" + toString(k_inicial) + "_sigma_" + toString(k_desvio) + "_chialvo_spikeTimes_powerlaw_alpha_" + toString(alpha) + "_N_" + toString(N) + "_shuffling#_" + toString(seed) + "_eps_" + toString(eps) + ".dat";
         outfile2.open(outName.c_str());
 
 
